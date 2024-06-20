@@ -62,6 +62,7 @@ export const createSingleProduct = async (req: express.Request, res: express.Res
 export const createProducts = async (req: express.Request, res: express.Response) => {
     try{
         const result:any[] = [];
+
         const products:[] = req.body;
         products.forEach(  function (product)  {
             const created =  createProduct(product);
