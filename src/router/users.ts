@@ -1,15 +1,16 @@
 import express from 'express';
 
-import { getAllUsers, deleteUser, updateUser} from '../controllers/users';
+import {getAllUsers, deleteUser, updateUser} from '../controllers/users';
 import { isAuthenticated, isOwner } from "../middlewares";
 import {
     createProducts,
     createSingleProduct,
     getAllProducts,
     getProduct,
-    getProductCategory
+    getProductCategory, getProductsByIds,
 } from "../controllers/products";
 import {login, register, logout} from "../controllers/authentication";
+import {addToCart, getCart, removeFromCart, removeProductFromCart} from "../controllers/cart";
 
 
 export default (router: express.Router) => {
@@ -24,5 +25,11 @@ export default (router: express.Router) => {
     router.get('/products-by-category/:category', getProductCategory);
     router.post('/product', isAuthenticated, createSingleProduct);
     router.post('/products', isAuthenticated, createProducts);
+    router.post('/cart/:cartId', addToCart);
+    router.delete('/cart/:cartId', removeFromCart);
+    router.get('/cart/:cartId', getCart);
+    router.post('/products-by-ids',getProductsByIds);
+    router.delete('/cart/remove-product/:cartId/:productId', removeProductFromCart)
+
 };
 
