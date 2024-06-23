@@ -76,3 +76,19 @@ export const createProducts = async (req: express.Request, res: express.Response
     }
 }
 
+
+export const getProductsByIds = async (req: express.Request, res: express.Response) => {
+    try{
+        const  ids: []  = req.body;
+        let products: any[] = [];
+        for (let i = 0; i < ids.length; i++) {
+            const product = await getProductById(ids[i])
+            products.push(product);
+
+        }
+        return res.status(200).json(products).end();
+    } catch(error) {
+        console.log(error);
+        return res.sendStatus(400);
+    }
+}
